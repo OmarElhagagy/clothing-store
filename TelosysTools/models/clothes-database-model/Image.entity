@@ -1,0 +1,11 @@
+@DbTable(Image)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Image {
+  // attributes
+  imageId : int { @Id @GeneratedValue(IDENTITY) @DbName(Image_ID) @DbType(serial) @NotNull @NotEmpty };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Image_Product_ID_fkey, Product.productId) };
+  imageUrl : string { @DbName(Image_URL) @DbType("text(2147483647)") @NotNull @NotEmpty @Size(2147483647) @MaxLen(2147483647) };
+  // links
+  product : Product { @LinkByFK(Image_Product_ID_fkey) };
+}

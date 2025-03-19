@@ -1,0 +1,13 @@
+@DbTable(Wishlist)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Wishlist {
+  // attributes
+  wishlistId : int { @Id @GeneratedValue(IDENTITY) @DbName(Wishlist_ID) @DbType(serial) @NotNull @NotEmpty };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Wishlist_Customer_ID_fkey, Customer.customerId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Wishlist_Product_ID_fkey, Product.productId) };
+  addedDate : date { @DbName(Added_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Wishlist_Customer_ID_fkey) };
+  product : Product { @LinkByFK(Wishlist_Product_ID_fkey) };
+}

@@ -1,0 +1,10 @@
+@DbTable(Phone_Numbers_Customers)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+PhoneNumbersCustomers {
+  // attributes
+  phoneNumber : string { @Id @DbName(Phone_Number) @DbType("varchar(20)") @NotNull @NotEmpty @Size(20) @MaxLen(20) };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Phone_Numbers_Customers_Customer_ID_fkey, Customer.customerId) };
+  // links
+  customer : Customer { @LinkByFK(Phone_Numbers_Customers_Customer_ID_fkey) };
+}

@@ -1,0 +1,15 @@
+@DbTable(Reviews)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Reviews {
+  // attributes
+  reviewId : int { @Id @GeneratedValue(IDENTITY) @DbName(Review_ID) @DbType(serial) @NotNull @NotEmpty };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Reviews_Product_ID_fkey, Product.productId) };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Reviews_Customer_ID_fkey, Customer.customerId) };
+  rating : int { @DbName(Rating) @DbType(int4) @NotNull @NotEmpty };
+  comment : string { @DbName(Comment) @DbType("text(2147483647)") @Size(2147483647) @MaxLen(2147483647) };
+  reviewDate : timestamp { @DbName(Review_Date) @DbType(timestamp) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Reviews_Customer_ID_fkey) };
+  product : Product { @LinkByFK(Reviews_Product_ID_fkey) };
+}

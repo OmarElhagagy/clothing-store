@@ -1,0 +1,16 @@
+@DbTable(Return)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Return {
+  // attributes
+  returnId : int { @Id @GeneratedValue(IDENTITY) @DbName(Return_ID) @DbType(serial) @NotNull @NotEmpty };
+  orderId : int { @DbName(Order_ID) @DbType(int4) @NotNull @NotEmpty @FK(Return_Order_ID_fkey, CustomerOrder.orderId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Return_Product_ID_fkey, Product.productId) };
+  refundedAmount : decimal { @DbName(Refunded_Amount) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  quantityReturned : int { @DbName(Quantity_Returned) @DbType(int4) @NotNull @NotEmpty };
+  reason : string { @DbName(Reason) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  returnDate : date { @DbName(Return_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  customerorder : CustomerOrder { @LinkByFK(Return_Order_ID_fkey) };
+  product : Product { @LinkByFK(Return_Product_ID_fkey) };
+}

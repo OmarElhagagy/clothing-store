@@ -1,0 +1,12 @@
+@DbTable(Price_History)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+PriceHistory {
+  // attributes
+  historyId : int { @Id @GeneratedValue(IDENTITY) @DbName(History_ID) @DbType(serial) @NotNull @NotEmpty };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Price_History_Product_ID_fkey, Product.productId) };
+  price : decimal { @DbName(Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  changeDate : date { @DbName(Change_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  product : Product { @LinkByFK(Price_History_Product_ID_fkey) };
+}

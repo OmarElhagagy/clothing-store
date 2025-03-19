@@ -1,0 +1,14 @@
+@DbTable(Cart)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Cart {
+  // attributes
+  cartId : int { @Id @GeneratedValue(IDENTITY) @DbName(Cart_ID) @DbType(serial) @NotNull @NotEmpty };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Cart_Customer_ID_fkey, Customer.customerId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Cart_Product_ID_fkey, Product.productId) };
+  quantity : int { @DbName(Quantity) @DbType(int4) @NotNull @NotEmpty };
+  addedDate : date { @DbName(Added_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Cart_Customer_ID_fkey) };
+  product : Product { @LinkByFK(Cart_Product_ID_fkey) };
+}

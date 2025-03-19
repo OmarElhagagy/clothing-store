@@ -1,0 +1,20 @@
+@DbTable(Employee)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Employee {
+  // attributes
+  employeeId : int { @Id @GeneratedValue(IDENTITY) @DbName(Employee_ID) @DbType(serial) @NotNull @NotEmpty };
+  storeId : int { @DbName(Store_ID) @DbType(int4) @NotNull @NotEmpty @FK(Employee_Store_ID_fkey, Store.storeId) };
+  storageNo : int { @DbName(Storage_No) @DbType(int4) @FK(Employee_Storage_No_fkey, Storage.storageNo) };
+  fName : string { @DbName(F_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  mName : string { @DbName(M_Name) @DbType("varchar(50)") @Size(50) @MaxLen(50) };
+  lName : string { @DbName(L_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  email : string { @DbName(Email) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  gender : string { @DbName(Gender) @DbType("bpchar(1)") @NotNull @NotEmpty @Size(1) @MaxLen(1) };
+  role : string { @DbName(Role) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  supervisor : int { @DbName(Supervisor) @DbType(int4) @FK(Employee_Supervisor_fkey, Employee.employeeId) };
+  // links
+  storage : Storage { @LinkByFK(Employee_Storage_No_fkey) };
+  store : Store { @LinkByFK(Employee_Store_ID_fkey) };
+  employee : Employee { @LinkByFK(Employee_Supervisor_fkey) };
+}

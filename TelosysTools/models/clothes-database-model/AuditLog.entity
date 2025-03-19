@@ -1,0 +1,16 @@
+@DbTable(Audit_Log)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+AuditLog {
+  // attributes
+  logId : int { @Id @GeneratedValue(IDENTITY) @DbName(Log_ID) @DbType(serial) @NotNull @NotEmpty };
+  userId : int { @DbName(User_ID) @DbType(int4) @FK(Audit_Log_User_ID_fkey, Users.userId) };
+  employeeId : int { @DbName(Employee_ID) @DbType(int4) @FK(Audit_Log_Employee_ID_fkey, Employee.employeeId) };
+  action : string { @DbName(Action) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  tableName : string { @DbName(Table_Name) @DbType("varchar(50)") @Size(50) @MaxLen(50) };
+  recordId : int { @DbName(Record_ID) @DbType(int4) };
+  timestamp : timestamp { @DbName(Timestamp) @DbType(timestamp) @NotNull @NotEmpty };
+  // links
+  employee : Employee { @LinkByFK(Audit_Log_Employee_ID_fkey) };
+  users : Users { @LinkByFK(Audit_Log_User_ID_fkey) };
+}

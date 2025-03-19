@@ -1,0 +1,15 @@
+@DbTable(Reserved_Stock)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+ReservedStock {
+  // attributes
+  reservationId : int { @Id @GeneratedValue(IDENTITY) @DbName(Reservation_ID) @DbType(serial) @NotNull @NotEmpty };
+  storeId : int { @DbName(Store_ID) @DbType(int4) @NotNull @NotEmpty @FK(Reserved_Stock_Store_ID_fkey, Store.storeId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Reserved_Stock_Product_ID_fkey, Product.productId) };
+  quantity : int { @DbName(Quantity) @DbType(int4) @NotNull @NotEmpty };
+  reservedAt : timestamp { @DbName(Reserved_At) @DbType(timestamp) @NotNull @NotEmpty };
+  expiresAt : timestamp { @DbName(Expires_At) @DbType(timestamp) @NotNull @NotEmpty };
+  // links
+  product : Product { @LinkByFK(Reserved_Stock_Product_ID_fkey) };
+  store : Store { @LinkByFK(Reserved_Stock_Store_ID_fkey) };
+}

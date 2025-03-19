@@ -1,0 +1,14 @@
+@DbTable(Customer)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Customer {
+  // attributes
+  customerId : int { @Id @GeneratedValue(IDENTITY) @DbName(Customer_ID) @DbType(serial) @NotNull @NotEmpty };
+  fName : string { @DbName(F_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  mName : string { @DbName(M_Name) @DbType("varchar(50)") @Size(50) @MaxLen(50) };
+  lName : string { @DbName(L_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  gender : string { @DbName(Gender) @DbType("bpchar(1)") @NotNull @NotEmpty @Size(1) @MaxLen(1) };
+  birthDate : date { @DbName(Birth_Date) @DbType(date) @NotNull @NotEmpty };
+  email : string { @DbName(Email) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  // links
+}

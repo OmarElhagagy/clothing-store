@@ -1,0 +1,12 @@
+@DbTable(Store_Inventory)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+StoreInventory {
+  // attributes
+  storeId : int { @Id @DbName(Store_ID) @DbType(int4) @NotNull @NotEmpty @FK(Store_Inventory_Store_ID_fkey, Store.storeId) };
+  productId : int { @Id @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Store_Inventory_Product_ID_fkey, Product.productId) };
+  quantity : int { @DbName(Quantity) @DbType(int4) @NotNull @NotEmpty };
+  // links
+  product : Product { @LinkByFK(Store_Inventory_Product_ID_fkey) };
+  store : Store { @LinkByFK(Store_Inventory_Store_ID_fkey) };
+}

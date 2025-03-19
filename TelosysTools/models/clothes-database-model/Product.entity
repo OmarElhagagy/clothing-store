@@ -1,0 +1,16 @@
+@DbTable(Product)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Product {
+  // attributes
+  productId : int { @Id @GeneratedValue(IDENTITY) @DbName(Product_ID) @DbType(serial) @NotNull @NotEmpty };
+  supplierId : int { @DbName(Supplier_ID) @DbType(int4) @FK(Product_Supplier_ID_fkey, Supplier.supplierId) };
+  productName : string { @DbName(Product_Name) @DbType("varchar(100)") @NotNull @NotEmpty @Size(100) @MaxLen(100) };
+  size : string { @DbName(Size) @DbType("varchar(10)") @NotNull @NotEmpty @Size(10) @MaxLen(10) };
+  brand : string { @DbName(Brand) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  price : decimal { @DbName(Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  color : string { @DbName(Color) @DbType("varchar(30)") @NotNull @NotEmpty @Size(30) @MaxLen(30) };
+  launchDate : date { @DbName(Launch_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  supplier : Supplier { @LinkByFK(Product_Supplier_ID_fkey) };
+}

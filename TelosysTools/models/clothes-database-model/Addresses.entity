@@ -1,0 +1,16 @@
+@DbTable(Addresses)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Addresses {
+  // attributes
+  addressId : int { @Id @GeneratedValue(IDENTITY) @DbName(Address_ID) @DbType(serial) @NotNull @NotEmpty };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Addresses_Customer_ID_fkey, Customer.customerId) };
+  street : string { @DbName(Street) @DbType("varchar(100)") @NotNull @NotEmpty @Size(100) @MaxLen(100) };
+  city : string { @DbName(City) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  state : string { @DbName(State) @DbType("varchar(50)") @Size(50) @MaxLen(50) };
+  postalCode : string { @DbName(Postal_Code) @DbType("varchar(20)") @NotNull @NotEmpty @Size(20) @MaxLen(20) };
+  country : string { @DbName(Country) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  isDefault : boolean { @DbName(Is_Default) @DbType(bool) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Addresses_Customer_ID_fkey) };
+}

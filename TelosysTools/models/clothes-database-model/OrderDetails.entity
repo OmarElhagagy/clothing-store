@@ -1,0 +1,15 @@
+@DbTable(Order_Details)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+OrderDetails {
+  // attributes
+  orderId : int { @Id @DbName(Order_ID) @DbType(int4) @NotNull @NotEmpty @FK(Order_Details_Order_ID_fkey, CustomerOrder.orderId) };
+  productId : int { @Id @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Order_Details_Product_ID_fkey, Product.productId) };
+  quantity : int { @DbName(Quantity) @DbType(int4) @NotNull @NotEmpty };
+  originalPrice : decimal { @DbName(Original_Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  discountAmount : decimal { @DbName(Discount_Amount) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  finalPrice : decimal { @DbName(Final_Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  // links
+  customerorder : CustomerOrder { @LinkByFK(Order_Details_Order_ID_fkey) };
+  product : Product { @LinkByFK(Order_Details_Product_ID_fkey) };
+}

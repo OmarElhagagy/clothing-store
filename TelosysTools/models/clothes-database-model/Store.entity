@@ -1,0 +1,11 @@
+@DbTable(Store)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Store {
+  // attributes
+  storeId : int { @Id @GeneratedValue(IDENTITY) @DbName(Store_ID) @DbType(serial) @NotNull @NotEmpty };
+  address : string { @DbName(Address) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  email : string { @DbName(Email) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  minStock : int { @DbName(Min_Stock) @DbType(int4) @NotNull @NotEmpty };
+  // links
+}

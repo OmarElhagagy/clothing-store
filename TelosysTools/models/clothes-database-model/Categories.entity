@@ -1,0 +1,9 @@
+@DbTable(Categories)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Categories {
+  // attributes
+  categoryId : int { @Id @GeneratedValue(IDENTITY) @DbName(Category_ID) @DbType(serial) @NotNull @NotEmpty };
+  categoryName : string { @DbName(Category_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  // links
+}

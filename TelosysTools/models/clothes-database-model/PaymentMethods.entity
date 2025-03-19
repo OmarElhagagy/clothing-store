@@ -1,0 +1,9 @@
+@DbTable(Payment_Methods)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+PaymentMethods {
+  // attributes
+  paymentMethodId : int { @Id @GeneratedValue(IDENTITY) @DbName(Payment_Method_ID) @DbType(serial) @NotNull @NotEmpty };
+  methodName : string { @DbName(Method_Name) @DbType("varchar(50)") @NotNull @NotEmpty @Size(50) @MaxLen(50) };
+  // links
+}

@@ -1,0 +1,17 @@
+@DbTable(Supply_Order)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+SupplyOrder {
+  // attributes
+  supplyOrderId : int { @Id @GeneratedValue(IDENTITY) @DbName(Supply_Order_ID) @DbType(serial) @NotNull @NotEmpty };
+  supplierId : int { @DbName(Supplier_ID) @DbType(int4) @NotNull @NotEmpty @FK(Supply_Order_Supplier_ID_fkey, Supplier.supplierId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Supply_Order_Product_ID_fkey, Product.productId) };
+  employeeId : int { @DbName(Employee_ID) @DbType(int4) @FK(Supply_Order_Employee_ID_fkey, Employee.employeeId) };
+  quantityOrdered : int { @DbName(Quantity_Ordered) @DbType(int4) @NotNull @NotEmpty };
+  price : decimal { @DbName(Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  orderDate : date { @DbName(Order_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  employee : Employee { @LinkByFK(Supply_Order_Employee_ID_fkey) };
+  product : Product { @LinkByFK(Supply_Order_Product_ID_fkey) };
+  supplier : Supplier { @LinkByFK(Supply_Order_Supplier_ID_fkey) };
+}

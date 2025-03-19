@@ -1,0 +1,25 @@
+databases:
+  - id: pg
+    name: PostgreSQL database
+    type: POSTGRESQL
+    driver: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/clothes_store_db
+    user: postgres
+    password: pass
+    catalog: '!'
+    schema: public
+    tableNamePattern: ""
+    tableNameInclude: ""
+    tableNameExclude: ""
+    tableTypes: TABLE
+    linksManyToOne: true
+    linksOneToMany: false
+    linksManyToMany: false
+    dbComment: false
+    dbCatalog: true
+    dbSchema: true
+    dbTable: true
+    dbView: false
+    dbName: true
+    dbType: true
+    dbDefaultValue: false

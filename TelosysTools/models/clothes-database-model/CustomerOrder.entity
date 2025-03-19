@@ -1,0 +1,19 @@
+@DbTable(Customer_Order)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+CustomerOrder {
+  // attributes
+  orderId : int { @Id @GeneratedValue(IDENTITY) @DbName(Order_ID) @DbType(serial) @NotNull @NotEmpty };
+  employeeSellerId : int { @DbName(Employee_Seller_ID) @DbType(int4) @NotNull @NotEmpty @FK(Customer_Order_Employee_Seller_ID_fkey, Employee.employeeId) };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Customer_Order_Customer_ID_fkey, Customer.customerId) };
+  paymentMethodId : int { @DbName(Payment_Method_ID) @DbType(int4) @NotNull @NotEmpty @FK(Customer_Order_Payment_Method_ID_fkey, PaymentMethods.paymentMethodId) };
+  addressId : int { @DbName(Address_ID) @DbType(int4) @FK(Customer_Order_Address_ID_fkey, Addresses.addressId) };
+  purchaseDate : date { @DbName(Purchase_Date) @DbType(date) @NotNull @NotEmpty };
+  totalPrice : decimal { @DbName(Total_Price) @DbType("numeric(10,2)") @NotNull @NotEmpty @Size(10,2) };
+  status : string { @DbName(Status) @DbType("varchar(20)") @NotNull @NotEmpty @Size(20) @MaxLen(20) };
+  // links
+  addresses : Addresses { @LinkByFK(Customer_Order_Address_ID_fkey) };
+  customer : Customer { @LinkByFK(Customer_Order_Customer_ID_fkey) };
+  employee : Employee { @LinkByFK(Customer_Order_Employee_Seller_ID_fkey) };
+  paymentmethods : PaymentMethods { @LinkByFK(Customer_Order_Payment_Method_ID_fkey) };
+}

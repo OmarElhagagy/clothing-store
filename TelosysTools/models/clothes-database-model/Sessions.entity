@@ -1,0 +1,12 @@
+@DbTable(Sessions)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Sessions {
+  // attributes
+  sessionId : string { @Id @DbName(Session_ID) @DbType("varchar(128)") @NotNull @NotEmpty @Size(128) @MaxLen(128) };
+  userId : int { @DbName(User_ID) @DbType(int4) @NotNull @NotEmpty @FK(Sessions_User_ID_fkey, Users.userId) };
+  createdAt : timestamp { @DbName(Created_At) @DbType(timestamp) @NotNull @NotEmpty };
+  expiresAt : timestamp { @DbName(Expires_At) @DbType(timestamp) @NotNull @NotEmpty };
+  // links
+  users : Users { @LinkByFK(Sessions_User_ID_fkey) };
+}

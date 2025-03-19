@@ -1,0 +1,18 @@
+@DbTable(Notification)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Notification {
+  // attributes
+  notificationId : int { @Id @GeneratedValue(IDENTITY) @DbName(Notification_ID) @DbType(serial) @NotNull @NotEmpty };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @FK(Notification_Customer_ID_fkey, Customer.customerId) };
+  storeId : int { @DbName(Store_ID) @DbType(int4) @FK(Notification_Store_ID_fkey, Store.storeId) };
+  productId : int { @DbName(Product_ID) @DbType(int4) @FK(Notification_Product_ID_fkey, Product.productId) };
+  employeeId : int { @DbName(Employee_ID) @DbType(int4) @FK(Notification_Employee_ID_fkey, Employee.employeeId) };
+  message : string { @DbName(Message) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  sentDate : date { @DbName(Sent_Date) @DbType(date) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Notification_Customer_ID_fkey) };
+  employee : Employee { @LinkByFK(Notification_Employee_ID_fkey) };
+  product : Product { @LinkByFK(Notification_Product_ID_fkey) };
+  store : Store { @LinkByFK(Notification_Store_ID_fkey) };
+}

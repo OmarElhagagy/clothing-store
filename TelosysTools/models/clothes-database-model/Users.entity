@@ -1,0 +1,16 @@
+@DbTable(Users)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Users {
+  // attributes
+  userId : int { @Id @GeneratedValue(IDENTITY) @DbName(User_ID) @DbType(serial) @NotNull @NotEmpty };
+  customerId : int { @DbName(Customer_ID) @DbType(int4) @NotNull @NotEmpty @FK(Users_Customer_ID_fkey, Customer.customerId) };
+  email : string { @DbName(Email) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  passwordHash : string { @DbName(Password_Hash) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  role : string { @DbName(Role) @DbType("varchar(20)") @NotNull @NotEmpty @Size(20) @MaxLen(20) };
+  failedLogins : int { @DbName(Failed_Logins) @DbType(int4) @NotNull @NotEmpty };
+  lockedUntil : timestamp { @DbName(Locked_Until) @DbType(timestamp) };
+  createdAt : timestamp { @DbName(Created_At) @DbType(timestamp) @NotNull @NotEmpty };
+  // links
+  customer : Customer { @LinkByFK(Users_Customer_ID_fkey) };
+}

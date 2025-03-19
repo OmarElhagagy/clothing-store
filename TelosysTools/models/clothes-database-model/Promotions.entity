@@ -1,0 +1,16 @@
+@DbTable(Promotions)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Promotions {
+  // attributes
+  promotionId : int { @Id @GeneratedValue(IDENTITY) @DbName(Promotion_ID) @DbType(serial) @NotNull @NotEmpty };
+  code : string { @DbName(Code) @DbType("varchar(20)") @Size(20) @MaxLen(20) };
+  description : string { @DbName(Description) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  discountPercentage : decimal { @DbName(Discount_Percentage) @DbType("numeric(5,2)") @Size(5,2) };
+  discountAmount : decimal { @DbName(Discount_Amount) @DbType("numeric(10,2)") @Size(10,2) };
+  startDate : date { @DbName(Start_Date) @DbType(date) @NotNull @NotEmpty };
+  endDate : date { @DbName(End_Date) @DbType(date) @NotNull @NotEmpty };
+  isActive : boolean { @DbName(Is_Active) @DbType(bool) @NotNull @NotEmpty };
+  maxUses : int { @DbName(Max_Uses) @DbType(int4) };
+  // links
+}

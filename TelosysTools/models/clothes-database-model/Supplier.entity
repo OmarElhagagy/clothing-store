@@ -1,0 +1,10 @@
+@DbTable(Supplier)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Supplier {
+  // attributes
+  supplierId : int { @Id @GeneratedValue(IDENTITY) @DbName(Supplier_ID) @DbType(serial) @NotNull @NotEmpty };
+  supplierName : string { @DbName(Supplier_Name) @DbType("varchar(100)") @NotNull @NotEmpty @Size(100) @MaxLen(100) };
+  email : string { @DbName(Email) @DbType("varchar(255)") @NotNull @NotEmpty @Size(255) @MaxLen(255) };
+  // links
+}

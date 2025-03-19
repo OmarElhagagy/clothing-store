@@ -1,0 +1,14 @@
+@DbTable(Storage)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+Storage {
+  // attributes
+  storageNo : int { @Id @GeneratedValue(IDENTITY) @DbName(Storage_No) @DbType(serial) @NotNull @NotEmpty };
+  storeId : int { @DbName(Store_ID) @DbType(int4) @NotNull @NotEmpty @FK(Storage_Store_ID_fkey, Store.storeId) };
+  location : string { @DbName(Location) @DbType("varchar(100)") @NotNull @NotEmpty @Size(100) @MaxLen(100) };
+  reorderLevel : int { @DbName(Reorder_Level) @DbType(int4) @NotNull @NotEmpty };
+  maxStock : int { @DbName(Max_Stock) @DbType(int4) @NotNull @NotEmpty };
+  minStock : int { @DbName(Min_Stock) @DbType(int4) @NotNull @NotEmpty };
+  // links
+  store : Store { @LinkByFK(Storage_Store_ID_fkey) };
+}

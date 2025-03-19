@@ -1,0 +1,12 @@
+@DbTable(Product_Categories)
+@DbCatalog(clothes_store_db)
+@DbSchema(public)
+@JoinEntity
+ProductCategories {
+  // attributes
+  productId : int { @Id @DbName(Product_ID) @DbType(int4) @NotNull @NotEmpty @FK(Product_Categories_Product_ID_fkey, Product.productId) };
+  categoryId : int { @Id @DbName(Category_ID) @DbType(int4) @NotNull @NotEmpty @FK(Product_Categories_Category_ID_fkey, Categories.categoryId) };
+  // links
+  categories : Categories { @LinkByFK(Product_Categories_Category_ID_fkey) };
+  product : Product { @LinkByFK(Product_Categories_Product_ID_fkey) };
+}
