@@ -33,6 +33,7 @@ $generator.generate($target.entityName ,  "${jpaEntityIdClass}.java", $target.fo
 #end
 
 import java.io.Serializable;
+import java.util.Objects;  ## Explicitly import for hashCode and equals
 #foreach( $import in $java.imports($entity) )
 import $import;
 #end
@@ -88,7 +89,7 @@ $jpa.linkAnnotations(4, $link, $entity.attributes)
      * Constructor
      */
     public ${entity.name}() {
-		super();
+        super();
     }
     
     //--- GETTERS & SETTERS FOR FIELDS
@@ -118,8 +119,22 @@ $jpa.linkAnnotations(4, $link, $entity.attributes)
 
 #end
     //--- toString specific method
-	@Override
-## This function generates a 'toString' method with indentation level = 1 (1 tab)
-## $java.toStringMethod($fn.concatLists($entity.keyAttributes, $entity.nonKeyAttributes), 4)## no EOL
+    @Override
 $java.toStringMethod($entity, 1)
+
+    //--- equals and hashCode methods
+#if ($entity.hasPrimaryKey())
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ${entity.name} that = (${entity.name}) o;
+        return #foreach($attribute in $entity.keyAttributes)#if($attribute.isPrimitiveType())${attribute.name} == that.${attribute.name}#elseObjects.equals(${attribute.name}, that.${attribute.name})#end#if($velocityCount < $entity.keyAttributes.size()) && #end#end;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(#foreach($attribute in $entity.keyAttributes)${attribute.name}#if($velocityCount < $entity.keyAttributes.size()), #end#end);
+    }
+#end
 }
